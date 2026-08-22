@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import supabase from "../utils/supabase";
+import { useOutletContext } from "react-router";
 
 const Login = () => {
     const navigate = useNavigate();
+    const { session } = useOutletContext();
     const [form, setForm] = useState({ email: "", password: "" });
+
+    useEffect(() => {
+        // if already loggedin redirect to their dashboard
+        if (session) {
+            navigate(`/dashboard/${session.user.user_metadata.role}`, {
+                replace: true,
+            });
+        }
+    }, [session, navigate]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

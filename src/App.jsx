@@ -1,15 +1,17 @@
 import { Outlet } from "react-router";
+import Loading from "./components/Loading";
 import { useAuthSession } from "./utils/authSession";
 
 const App = () => {
     // Get the Session from AuthSession.js
-    const session = useAuthSession();
+    const { session, loading } = useAuthSession();
 
     return (
         <>
             <main className="min-h-screen bg-gray-50 font-sans text-gray-800 antialiased">
-                {/* pass session to context prop to be used by the children */}
-                <Outlet context={{ session }} />
+                {/* hold every route until the stored session has resolved,
+                    otherwise guards would run against a not-yet-known session */}
+                {loading ? <Loading /> : <Outlet context={{ session }} />}
             </main>
         </>
     );

@@ -6,8 +6,3 @@ export const roles = [
 
 export const roleId = (type) => roles.find((role) => role.type === type)?.id;
 export const roleType = (id) => roles.find((role) => role.id === id)?.type;
-
-export const dashboardPath = (id) => {
-    const type = roleType(id);
-    return type === "client" || type === "servee" ? `/dashboard/${type}` : null;
-};

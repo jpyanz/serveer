@@ -1,11 +1,10 @@
-import { Navigate } from "react-router";
-import { useOutletContext } from "react-router";
+import { Navigate, useOutletContext } from "react-router";
 
 const ProtectedRoute = ({ children }) => {
     const { session } = useOutletContext();
 
     if (!session) {
-        return <Navigate to="/" replace />;
+        return <Navigate to="/login" replace />;
     }
 
     return children;
